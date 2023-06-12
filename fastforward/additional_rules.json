@@ -1,0 +1,6 @@
+{
+  "tracker": [
+    "https?:\\/\\/tinyurl\\.com\\/(?!app).*",
+    "https?:\\/\\/rb\\.gy\\/.*"
+  ]
+}
