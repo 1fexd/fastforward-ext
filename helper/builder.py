@@ -39,7 +39,7 @@ class KotlinBuilder(Builder):
         writer.write(f"""
             package fe.fastforwardkt
             
-            object FastforwardRules {{
+            object FastForwardRules {{
                  val rules = mapOf({map_items_str})
             }}
         """, clean=True)

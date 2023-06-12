@@ -25,7 +25,7 @@ for rule in additional_rules:
 
 __BUILDER = {
     TypescriptBuilder(): "tracker.ts",
-    KotlinBuilder(): "FastforwardRules.kt"
+    KotlinBuilder(): "FastForwardRules.kt"
 }
 
 with open("rules.json", "w") as file:
