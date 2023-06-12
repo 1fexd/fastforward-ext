@@ -15,6 +15,7 @@ class RegexWriter(ABC):
 
 class KotlinRegexWriter(RegexWriter):
     def str_to_regex(self, regex: str) -> str:
+        regex = regex.replace("\\", "\\\\")
         return f"""Regex("{regex}", RegexOption.IGNORE_CASE)"""
 
 
