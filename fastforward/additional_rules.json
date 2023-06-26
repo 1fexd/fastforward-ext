@@ -2,6 +2,7 @@
   "tracker": [
     "https?:\\/\\/tinyurl\\.com\\/(?!app).+",
     "https?:\\/\\/buff\\.ly\\/.+",
-    "https?:\\/\\/trib\\.al\\/.+"
+    "https?:\\/\\/trib\\.al\\/.+",
+    "https?:\\/\\/is\\.gd\\/.+$(?<!\\.php)"
   ]
 }
