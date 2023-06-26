@@ -5,5 +5,5 @@ and Kotlin files to be used in [linksheet-supabase-functions](https://github.com
 and [fastforwardkt](https://github.com/1fexd/fastforwardkt) respectively
 
 Last updated
-at `5fa5071b64eca606e2e44ff9e498df2228eabb5b` ([Diff](https://github.com/FastForwardTeam/FastForward/compare/5fa5071b64eca606e2e44ff9e498df2228eabb5b...main))
+at `de573875167ccd43cefd8c72d1900a0d041889d1` ([Diff](https://github.com/FastForwardTeam/FastForward/compare/de573875167ccd43cefd8c72d1900a0d041889d1...main))
     
