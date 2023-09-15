@@ -3,6 +3,27 @@
     "https?:\\/\\/tinyurl\\.com\\/(?!app).+",
     "https?:\\/\\/buff\\.ly\\/.+",
     "https?:\\/\\/trib\\.al\\/.+",
-    "https?:\\/\\/is\\.gd\\/.+$(?<!\\.php)"
+    "https?:\\/\\/is\\.gd\\/.+$(?<!\\.php)",
+    "https?:\\/\\/(?:.+\\.)?x.co\\/.*",
+    "https?:\\/\\/(?:.+\\.)?1w.tf\\/.*",
+    "https?:\\/\\/(?:.+\\.)?1b.yt\\/.*",
+    "https?:\\/\\/(?:.+\\.)?is.gd\\/.*",
+    "https?:\\/\\/(?:.+\\.)?po.st\\/.*",
+    "https?:\\/\\/(?:.+\\.)?plu.sh\\/.*",
+    "https?:\\/\\/(?:.+\\.)?zii.bz\\/.*",
+    "https?:\\/\\/(?:.+\\.)?bit.do\\/.*",
+    "https?:\\/\\/(?:.+\\.)?hive.am\\/.*",
+    "https?:\\/\\/(?:.+\\.)?snip.li\\/.*",
+    "https?:\\/\\/(?:.+\\.)?go2l.ink\\/.*",
+    "https?:\\/\\/(?:.+\\.)?snipli.com\\/.*",
+    "https?:\\/\\/(?:.+\\.)?send.digital\\/.*",
+    "https?:\\/\\/(?:.+\\.)?great.social\\/.*",
+    "https?:\\/\\/(?:.+\\.)?t.co\\/.*",
+    "https?:\\/\\/analytics.twitter.com/mob_idsync_click?.*",
+    "https?:\\/\\/track.flexlinkspro.com/a.ashx?.*",
+    "https?:\\/\\/r20.rs6.net/tn.jsp?.*",
+    "https?:\\/\\/ay.link/i\\/.*",
+    "https?:\\/\\/analytics.supplyframe.com\\/.*",
+    "https?:\\/\\/clg.am/*"
   ]
 }
