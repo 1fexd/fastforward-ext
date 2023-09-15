@@ -34,4 +34,6 @@ jobs:
             tag=$(date +%s)
             gh release create $tag output/* --latest
           fi;
-        
+        env:
+          GH_TOKEN: ${{ github.token }}
+
