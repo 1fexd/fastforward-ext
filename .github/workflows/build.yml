@@ -24,14 +24,14 @@ jobs:
           pip install -r requirements.txt
 
       - name: Re-fetch rules from upstream, build
-        shell: bash
         run: |
           wget https://raw.githubusercontent.com/FastForwardTeam/FastForward/master/src/js/rules.json -O fastforward/rules.json
           python build.py
 
       - name: New release if necessary
         run: |
-          if [[ $(git diff output/* | wc -l) -gt 0 ]]; then 
+          if [[ $(git diff output/* | wc -l) -gt 0 || ${{ github.event_name == 'workflow_dispatch' }} == true ]]; then 
             tag=$(date +%s)
             gh release create $tag output/* --latest
           fi;
+        
