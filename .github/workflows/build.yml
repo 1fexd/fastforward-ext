@@ -1,0 +1,39 @@
+name: Build source files
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+          cache: 'pip'
+
+      - name: Install dependencies
+        shell: Bash
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Re-fetch rules from upstream, build
+        shell: bash
+        run: |
+          wget https://raw.githubusercontent.com/FastForwardTeam/FastForward/master/src/js/rules.json -O fastforward/rules.json
+          python build.py
+
+      - name: New release if necessary
+        run: |
+          if [[ $(git diff output/* | wc -l) -gt 0 ]]; then 
+            tag=$(date +%s)
+            gh release create $tag output/* --latest
+          fi;
