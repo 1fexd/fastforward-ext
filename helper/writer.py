@@ -22,3 +22,9 @@ class KotlinRegexWriter(RegexWriter):
 class TypescriptRegexWriter(RegexWriter):
     def str_to_regex(self, regex: str) -> str:
         return f"""new RegExp("{regex}", "i")"""
+
+
+class TextWriter(RegexWriter):
+    def str_to_regex(self, regex: str) -> str:
+        return regex
+

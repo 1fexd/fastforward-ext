@@ -1,8 +1,8 @@
 import json
 
-from fwutil.FileWriter import write_file
+from fwutil.FileWriter import open_file
 
-from helper.builder import TypescriptBuilder, KotlinBuilder
+from helper.builder import TypescriptBuilder, KotlinBuilder, TextTrackerHostnameBuilder, TextTrackerRegexBuilder
 from wildcard import wildcard_to_regex, host_to_regex
 
 with open("fastforward/rules.json", "r") as file:
@@ -25,13 +25,14 @@ for rule in additional_rules:
 
 __BUILDER = {
     TypescriptBuilder(): "tracker.ts",
-    KotlinBuilder(): "FastForwardRules.kt"
+    KotlinBuilder(): "FastForwardRules.kt",
+    TextTrackerHostnameBuilder(): "tracker_hostnames.txt",
+    TextTrackerRegexBuilder(): "tracker_regex.txt",
 }
 
 with open("rules.json", "w") as file:
     json.dump(result_rules, file)
 
 for builder, file in __BUILDER.items():
-    fw = write_file(f"output/{file}")
-    builder.write(fw, result_rules)
-    fw.close()
+    with open_file(f"output/{file}") as fw:
+        builder.write(fw, result_rules)
