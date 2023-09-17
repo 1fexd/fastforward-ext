@@ -8,7 +8,7 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  build:
+  setup_and_check_up_stream:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,11 +33,21 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           yes-create-issues: false
 
+  build:
+    needs: setup_and_check_up_stream
+    if: jobs.setup_and_check_up_stream.steps.upstream_check.outputs.newCommitsInSyncRepo == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Re-fetch rules from upstream, build
-        if: steps.upstream_check.outputs.newCommitsInSyncRepo == 'true' || github.event_name == 'workflow_dispatch'
         run: |
           wget https://raw.githubusercontent.com/FastForwardTeam/FastForward/master/src/js/rules.json -O fastforward/rules.json
           python build.py
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: source-files
+          path: output/*
 
       - name: New release if necessary
         run: gh release create $(date +%s) output/* --latest
