@@ -23,9 +23,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: poll-github-repo-action
+      - name: Check if FastForward's rules have changed
         id: upstream_check
-        uses: 1fexd/poll-github-repo-action@0.0.3
+        uses: 1fexd/poll-github-repo-action@0.0.4
         with:
           repo-to-sync: FastForwardTeam/FastForward
           path-to-sync: src/js/rules.json
