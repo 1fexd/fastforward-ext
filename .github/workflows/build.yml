@@ -25,7 +25,7 @@ jobs:
 
       - name: Check if FastForward's rules have changed
         id: upstream_check
-        uses: 1fexd/poll-github-repo-action@0.0.4
+        uses: poll-github-repo/action@v1
         with:
           repo-to-sync: FastForwardTeam/FastForward
           path-to-sync: src/js/rules.json
