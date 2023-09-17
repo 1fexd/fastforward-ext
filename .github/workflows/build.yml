@@ -8,7 +8,7 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  setup_and_check_up_stream:
+  setup_and_check_upstream:
     runs-on: ubuntu-latest
     outputs:
       newCommitsInSyncRepo: ${{ steps.upstream_check.outputs.newCommitsInSyncRepo == 'true' }}
@@ -43,7 +43,7 @@ jobs:
     steps:
       - name: Re-fetch rules from upstream, build
         run: |
-          wget https://raw.githubusercontent.com/FastForwardTeam/FastForward/master/src/js/rules.json -O fastforward/rules.json
+          wget https://raw.githubusercontent.com/FastForwardTeam/FastForward/master/src/js/rules.json -O ./fastforward/rules.json
           python build.py
 
       - uses: actions/upload-artifact@v3
