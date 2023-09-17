@@ -23,17 +23,23 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: poll-github-repo-action
+        id: upstream_check
+        uses: 1fexd/poll-github-repo-action@0.0.3
+        with:
+          repo-to-sync: FastForwardTeam/FastForward
+          path-to-sync: src/js/rules.json
+          cache-path: .sync/rules.json.last-sync
+          token: ${{ secrets.GITHUB_TOKEN }}
+          yes-create-issues: false
+
       - name: Re-fetch rules from upstream, build
+        if: steps.upstream_check.outputs.newCommitsInSyncRepo == 'true' || github.event_name == 'workflow_dispatch'
         run: |
           wget https://raw.githubusercontent.com/FastForwardTeam/FastForward/master/src/js/rules.json -O fastforward/rules.json
           python build.py
 
       - name: New release if necessary
-        run: |
-          if [[ $(git diff output/* | wc -l) -gt 0 || ${{ github.event_name == 'workflow_dispatch' }} == true ]]; then 
-            tag=$(date +%s)
-            gh release create $tag output/* --latest
-          fi;
+        run: gh release create $(date +%s) output/* --latest
         env:
           GH_TOKEN: ${{ github.token }}
-

@@ -51,13 +51,31 @@ class TextTrackerHostnameBuilder(Builder):
         super().__init__(TextWriter())
 
     @staticmethod
-    def __regex_tracker_to_hostname(regex_tracker: str):
-        tracker = regex_tracker.replace(".*", "").replace("\\", "").replace("?://", "://")
+    def __regex_tracker_to_hostname(regex_tracker: str) -> str:
+        regex_tracker = regex_tracker.replace("https?:\\/\\/", "").replace("(?:.+\\.)?", "").replace(".*:\\/\\/", "")
+        has_any_path_idx = regex_tracker.rfind("\\/.*")
+        if has_any_path_idx != -1:
+            regex_tracker = regex_tracker[0:has_any_path_idx]
 
-        if tracker.startswith("://"):
-            tracker = f"https{tracker}"
+        # if regex_tracker.startswith(".*"):
+        #     regex_tracker = regex_tracker[2:]
 
-        return urllib.parse.urlparse(tracker).hostname
+        regex_tracker = regex_tracker.replace(".*", "").replace(".+", "")
+        regex_tracker = regex_tracker.replace("\\", "")
+        #
+        # print(regex_tracker)
+
+        # tracker = regex_tracker.replace("\\", "").replace("?://", "://").replace("(?:.+\\.)?", "")
+        #
+        # if tracker.startswith("://"):
+        #     tracker = f"https{tracker}"
+        print(regex_tracker)
+        try:
+            urllib.parse.urlparse(regex_tracker).hostname
+        except Exception as e:
+            print(e)
+        return regex_tracker
+        # return urllib.parse.urlparse(regex_tracker).hostname
 
     def write(self, writer: FileWriter, rules: Dict[str, List[str]]):
         writer.write_list(rules["tracker"], separator="\n", transform=self.__regex_tracker_to_hostname)
