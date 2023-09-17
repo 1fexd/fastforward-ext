@@ -36,8 +36,8 @@ jobs:
           yes-create-issues: false
 
   build:
-    needs: setup_and_check_up_stream
-    if: needs.setup_and_check_up_stream.outputs.newCommitsInSyncRepo || github.event_name == 'workflow_dispatch'
+    needs: setup_and_check_upstream
+    if: needs.setup_and_check_upstream.outputs.newCommitsInSyncRepo || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
