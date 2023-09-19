@@ -26,7 +26,7 @@ jobs:
 
   build:
     needs: setup_and_check_upstream
-    if: needs.setup_and_check_upstream.outputs.newCommitsInSyncRepo || github.event_name == 'workflow_dispatch'
+    if: needs.setup_and_check_upstream.outputs.newCommitsInSyncRepo || github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
