@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [ master ]
-  schedule:
-    - cron: '0 0 * * *'
+#  schedule:
+ #   - cron: '0 0 * * *'
 
 jobs:
   setup_and_check_upstream:
