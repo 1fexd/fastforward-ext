@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [ master ]
-  schedule:
-    - cron: '0 0 * * *'
+#  schedule:
+ #   - cron: '0 0 * * *'
 
 jobs:
   setup_and_check_upstream:
@@ -14,17 +14,6 @@ jobs:
       newCommitsInSyncRepo: ${{ steps.upstream_check.outputs.newCommitsInSyncRepo == 'true' }}
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.8'
-          cache: 'pip'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
       - name: Check if FastForward's rules have changed
         id: upstream_check
         uses: poll-github-repo/action@v1
@@ -36,11 +25,23 @@ jobs:
           yes-create-issues: false
 
   build:
-    needs: setup_and_check_up_stream
-    if: needs.setup_and_check_up_stream.outputs.newCommitsInSyncRepo || github.event_name == 'workflow_dispatch'
+    needs: setup_and_check_upstream
+    if: needs.setup_and_check_upstream.outputs.newCommitsInSyncRepo || github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
       - name: Re-fetch rules from upstream, build
         run: |
           wget https://raw.githubusercontent.com/FastForwardTeam/FastForward/master/src/js/rules.json -O ./fastforward/rules.json
