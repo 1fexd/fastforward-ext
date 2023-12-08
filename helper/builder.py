@@ -1,3 +1,4 @@
+import time
 import urllib.parse
 from abc import ABC
 from typing import Dict, TextIO, List
@@ -37,10 +38,13 @@ class KotlinBuilder(Builder):
             for rule in rules
         ])
 
+        now = int(time.time() * 1000.0)
+
         writer.write_multiline(f"""
             package fe.fastforwardkt
             
             object FastForwardRules {{
+                 const val fetchedAt = {now}L
                  val rules = mapOf({map_items_str})
             }}
         """, clean=True)
